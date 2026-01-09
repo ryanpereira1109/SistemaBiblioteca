@@ -13,5 +13,33 @@ public class Usuarios extends Pessoa {
         this.email = email;
         this.senha = senha;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public ArrayList<Livros> getListaLivrosUsuario() {
+        return listaLivrosUsuario;
+    }
+
+    public void setListaLivrosUsuario(ArrayList<Livros> listaLivrosUsuario) {
+        this.listaLivrosUsuario = listaLivrosUsuario;
+    }
+    
+    public boolean podeEmprestar() {
+    return listaLivrosUsuario.size() < 3;
+}
     
 }
