@@ -7,101 +7,101 @@ import java.util.Scanner;
 
 
 public class SistemaBiblioteca {
-     static Biblioteca b = new Biblioteca();
+     static Biblioteca b = new Biblioteca(); // variavel global biblioteca sendo instanciada
      
       public static void main(String[] args) {
-        Scanner leia = new Scanner(System.in);  
-        int escolha;
+        Scanner leia = new Scanner(System.in);   // scanner
+        int escolha; // variavel de escolha menu
         
         
         
-        do {
-        mostrarMenuLogin();
-        escolha = leia.nextInt();
-        leia.nextLine();
+        do { // iniciando do while
+        mostrarMenuLogin(); // mostrando menu do login
+        escolha = leia.nextInt(); // guardando a escolha do usuario na variavel escolha
+        leia.nextLine(); // limpando scanner
         
-        switch(escolha) {
+        switch(escolha) { // iniciando todas as escolhas possivel
             case 1:
-                Usuarios u = loginUsuario(leia, b.listaUsuarios);
+                Usuarios u = loginUsuario(leia); // instanciando e criando login usuario e retornando
                 
-                int escolha2;
+                int escolha2; // criando a segunda variavel de escolha do usuario
                 do {
-                menuUsuario();
-                escolha2 = leia.nextInt();
+                menuUsuario(); // mostrando todas as opções de usuario no sistema
+                escolha2 = leia.nextInt(); // colocando a escolha do usuario
                 leia.nextLine();
                 
-                switch(escolha2) {
-                    case 1:
+                switch(escolha2)  { // iniciando escolha
+                    case 1: // caso ele escolha 1 vai mostrar todos os livros cadastrados no sistema e se ele quer pegar emprestado
                         
-                        mostrarLivro(b.listaLivros);
-                        emprestarLivro(leia , b.listaLivros , u , b.listaEmprestimos); 
+                        mostrarLivro(); // mostrando livros
+                        emprestarLivro(leia , u); // mostrando menu e entregando o usuario cadastrando para a função
                         
                         break;
                         
                         
-                    case 2:
-                        mostrarLivro(b.listaLivros);
-                        break;
+                    case 2: // caso ele escolha 2, vai mostrar os livros cadastrados
+                        mostrarLivro(); // mostrando o livro
+                        break; // caso 2 acaba aqui retornando a escolha
                                 
                     case 3:
-                        devolverEmprestimo(leia, b.listaEmprestimos , u );
+                        devolverEmprestimo(leia, u ); // metodo devolver emprestimo recebendo leia e o usuario
                         
-                        break;
+                        break; // parando case
                    case 4: 
-                       System.out.println("Saindo...");   
+                       System.out.println("Saindo...");   // parando sistema
                        break;
                        
                        
-                   default:
+                   default: // caso default, ele digitou algo aleatorio
                        System.out.println("Valor invalidado");   
                        break;
                 }
-                } while (escolha2 != 4);
-                break;
+                } while (escolha2 != 4); // fim do do while caso ele digite 4
+                break; // fim da escolha usuario
                 
                 
-            case 2:
-                loginAtendente(leia);
-                int escolha3;
-                do {
-                menuAtendente();
-                escolha3 = leia.nextInt();
+            case 2: //caso escolha biblioteca
+                loginAtendente(leia); // fazendo login atendente
+                int escolha3; // escolha do menu do atendente
+                do { // iniciando do while atendente
+                menuAtendente(); // mostrando menu
+                escolha3 = leia.nextInt(); // lendo a escolha do usuario
                 leia.nextLine();
-                switch(escolha3) {
+                switch(escolha3) { // abrindo escolha atendente
                     case 1:
-                        cadastrarLivro(leia , b.listaLivros);
+                        cadastrarLivro(leia); // cadastrando livro no metodo cadastrarLivro
                         break;
                         
                         
                     case 2:
-                         mostrarLivro(b.listaLivros);
+                         mostrarLivro(); // mostrando lista de livros
                         break;
                                 
                                
                    case 3: 
-                       mostrarUsuarios(b.listaUsuarios);
+                       mostrarUsuarios(); // mostrando lista de usuarios
                        break;
                        
                    case 4:
-                       mostrarEmprestimos(b.listaEmprestimos);
+                       mostrarEmprestimos(); // mostre lista de emprestimos
                        break;
                    case 5:  
-                   System.out.println("Saindo...");   
+                   System.out.println("Saindo...");   // ssaindo do ssistema
                        break;
                        
                        
                    default:
-                       System.out.println("Valor invalidado");   
+                       System.out.println("Valor invalidado");   // digitou valor aleatorio
                        break;
                 }
                 
-                }while (escolha3 != 5);
+                }while (escolha3 != 5); // saindo do loop
             
                  break;
                  
                  
             case 3:
-               System.out.println("Encerrando programa");   
+               System.out.println("Encerrando programa");   // encerrando programa
                break;
                 
         }
@@ -114,10 +114,11 @@ public class SistemaBiblioteca {
        System.out.println("1- Login Usuario");   
        System.out.println("2- Login Biblioteca");
        System.out.println("3- Sair");
+       // mostrando escolhas que o usuario vai fazer
         
     }
     
-    public static Usuarios loginUsuario (Scanner leia, ArrayList<Usuarios> lista) {
+    public static Usuarios loginUsuario (Scanner leia) {
         System.out.println("Digite seu nome: ");   
         String nome = leia.nextLine();
         System.out.println("Digite seu CPF: ");   
@@ -126,16 +127,15 @@ public class SistemaBiblioteca {
         String email = leia.nextLine();
         System.out.println("Digite sua senha: ");   
         String senha = leia.nextLine();
+        // mostrando e recebendo dados do usuario
         
-        Usuarios usuario = new Usuarios( nome, cpf, email, senha);
-        lista.add(usuario);
-        return usuario;
+        return b.cadastrarUsuario(nome, cpf, email, senha); // cadastrando usuario no metodo de cadastrar na biblioteca
         
     }
     
     
         public static void loginAtendente (Scanner leia) {
-        System.out.println("Digite seu nome: ");   
+        System.out.println("Digite seu nome: ");  // leitura de dados do atendente (login ainda não implementado)
         String nome = leia.nextLine();
         System.out.println("Digite seu CPF: ");   
         String cpf = leia.nextLine(); 
@@ -161,7 +161,7 @@ public class SistemaBiblioteca {
             
         }
         
-        public static void cadastrarLivro (Scanner leia, ArrayList<Livros> lista) {
+        public static void cadastrarLivro (Scanner leia) {
             System.out.println("Digite o titulo: ");   
             String titulo = leia.nextLine();
             System.out.println("Digite o numero de paginas: ");   
@@ -169,150 +169,76 @@ public class SistemaBiblioteca {
             leia.nextLine();
             System.out.println("Digite o autor: ");   
             String autor = leia.nextLine();
+            // perguntando dados do livro e guardando em suas respectivas variaveiss
         
-            Livros livro = new  Livros( titulo, paginas, autor, true);
-            lista.add(livro);
+            b.cadastrarLivro(titulo, paginas, autor); // pegando o metodo da biblioteca livro e cadastrando
             
         }
         
-         public static void mostrarLivro( ArrayList<Livros> lista) {
+         public static void mostrarLivro() {
                 
-                System.out.println("--- Lista de Livros ---");
-                for (Livros l : lista) {
+                System.out.println("--- Lista de Livros ---"); // mostrando que é uma lista de livros
+                for (Livros l :  b.listarLivros()) { // mostrando cada livro da lista (para cada livro da lista de livros mostre os detalhes deles
                 System.out.println("Nome: " + l.getTitulo() + " | Paginas: " + l.getPaginas() + " | Autor: " + l.getAutor() + " | Situação: " + (l.isDisponivel() ? "Sim" : "Não"));
+                // mostrando detalhes
            }
          }
          
-          public static void emprestarLivro (Scanner leia , ArrayList<Livros> lista , Usuarios u , ArrayList<Emprestimo> lista2) {
-              System.out.println("Digite o livro desejado: ");   
-              String pesquisalivro = leia.nextLine();
-              boolean encontrado = false;
+        public static void emprestarLivro (Scanner leia, Usuarios u) {
+              System.out.println("Digite o livro desejado: ");   // perguntando ao usuario qual livro desejado
+              String pesquisalivro = leia.nextLine(); // recebendo
+              boolean sucesso = b.emprestarLivro(u, pesquisalivro); // criando uma variavel boleana que vai retornar se é verdadeiro ou falso do metodo criado de biblioteca
               
-              for (Livros livro : lista) {
+              if (sucesso) { // se o metodo retornar verdadeiro mostre que foi um sucesso
+                System.out.println("Empréstimo realizado com sucesso!");
+                } else { // se falso, mostre que nao foi possivel.
+                 System.out.println("Não foi possível realizar o empréstimo.");
+                }
               
-               if (livro.getTitulo().equalsIgnoreCase(pesquisalivro)) {
-                      System.out.println("Livro encontrado!");
-                      System.out.println("Autor: " + livro.getAutor() + " | Disponível: " + (livro.isDisponivel() ? "Sim" : "Não"));
-                      encontrado = true;
-                      System.out.println("Deseja pedir o livro emprestado? S/N ");
-                      String pedir = leia.nextLine();
-                      if (u.podeEmprestar()) {
-                      switch (pedir)
-                      {
-                          case "S": 
-                              if(livro.isDisponivel()) {
-                                  u.listaLivrosUsuario.add(livro);
-                                  livro.setDisponivel(false);
-                                  Emprestimo e = new Emprestimo(livro , u);
-                                  b.listaEmprestimos.add(e);
-                                  System.out.println("Empréstimo realizado com sucesso para: " + u.getNome());
-                              } else {
-                                System.out.println("Este livro já está com outro usuário.");
-                                 } 
-
-                              break;
-                                      
-                                      
-                          case "N":
-                          
-                              System.out.println("Operação cancelada.");
-                              
-                             break;
-                             
-                          default:
-                              System.out.println("Valor invalido");
-                              break;
-                      
-               
-              }
-                      } else {
-                          System.out.println("limite atingido");
-                      }
-                
-           }
-               
-              }
-
-           if (!encontrado) {
-              System.out.println("Desculpe, o livro '" + pesquisalivro + "' não foi encontrado no sistema.");
-           }
-        
     
-         }
+          }
           
           
-         public static void mostrarUsuarios(ArrayList<Usuarios> lista) {
-             for (Usuarios u : lista) {
-                System.out.println("Nome: " + u.getNome() + " | CPF: " + u.getCpf() + " | Email: " + u.getEmail());
+         public static void mostrarUsuarios() {
+             for (Usuarios u : b.listarUsuarios()) { // para cada usuario de lista usuarioss
+                System.out.println("Nome: " + u.getNome() + " | CPF: " + u.getCpf() + " | Email: " + u.getEmail()); // mostre essas informações
              
          }
              
          }
          
-          public static void mostrarEmprestimos(ArrayList<Emprestimo> lista) {
-              for (Emprestimo e : lista) {
+          public static void mostrarEmprestimos() {
+              for (Emprestimo e : b.listarEmprestimos()) {
                   
-              System.out.println("Usuário: " + e.usuario.getNome() + 
-                           " | CPF: " + e.usuario.getCpf() + 
-                           " | Livro: " + e.livro.getTitulo());
+              System.out.println("Usuário: " + e.getUsuario().getNome() + 
+                           " | CPF: " + e.getUsuario().getCpf() + 
+                           " | Livro: " + e.getLivro().getTitulo());
              }
               
           }
           
-           public static void devolverEmprestimo(Scanner leia , ArrayList<Emprestimo> lista , Usuarios u) {
-               System.out.println("--- Seus Livros Emprestados ---");
-               boolean temEmprestimo = false;
-               for (Emprestimo e : lista) {
-                 if (e.usuario.getCpf().equals(u.getCpf())) {
-                   System.out.println("- " + e.livro.getTitulo());
-                   temEmprestimo = true;
-                    }
-                 }           
- 
-                if (!temEmprestimo) {
-                   System.out.println("Você não possui livros para devolver.");
-                  return;
-                 }
-              
-               System.out.println("Digite o livro para devolver: ");  
-               String pesquisalivro = leia.nextLine();
-               Emprestimo paraRemover = null;
-               
-               for (Emprestimo e : lista) {
-              
-              if (e.livro.getTitulo().equalsIgnoreCase(pesquisalivro) && e.usuario.getCpf().equals(u.getCpf())) {
-                      System.out.println("Deseja realmente devolver o livro? S/N ");
-                      String pedir = leia.nextLine();
-                      switch(pedir) {
-                          case "S":
-                              e.livro.setDisponivel(true);
-                              u.listaLivrosUsuario.remove(e.livro);
-                              paraRemover = e;
-                
-                              System.out.println("Livro devolvido com sucesso!");
-                              break;
-                          case "N":
-                               System.out.println("Processo cancelado!");
-                               break;
-                               
-                          default:
-                              System.out.println("Valor invalido!");
-                              break;       
-                             
-                      }
-                     
-                      
-               }
-               
-              }
-               
-                 if (paraRemover != null) {
-                 lista.remove(paraRemover);
-                 } else {
-                 System.out.println("Livro não encontrado nos seus empréstimos.");
-                  }
-              
-                }
-    
+           public static void devolverEmprestimo(Scanner leia , Usuarios u) { 
+                    System.out.println("--- Seus Livros Emprestados ---"); // mostrando menu 
 
+                        if (u.getListaLivrosUsuario().isEmpty()) { // Se a lista de livros que o usuário u pegou emprestado estiver vazia...
+                          System.out.println("Você não possui livros para devolver."); //Esta linha só será executada se a condição lá de cima for verdadeira.
+                         return; // Encerra a execução do método atual imediatamente.
+                            }
+
+                        for (Livros l : u.getListaLivrosUsuario()) { // para cada livro da lista de emprestimo do usuario
+                          System.out.println("- " + l.getTitulo()); // mostre o titulo
+                          }
+
+                          System.out.println("Digite o livro para devolver: "); // 
+                          String titulo = leia.nextLine(); // pegando o titulo q ele digitou
+
+                          boolean sucesso = b.devolverLivro(u, titulo); // verificando sucesso do metodo de biblioteca
+
+                        if (sucesso) { // se o metodo foi um sucesso
+                          System.out.println("Livro devolvido com sucesso!"); // livro devolvido
+                           } else {
+                           System.out.println("Livro não encontrado nos seus empréstimos.");
+                        }
+    
+           }
 }

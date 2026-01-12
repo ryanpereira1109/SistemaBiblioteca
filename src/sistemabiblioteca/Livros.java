@@ -14,7 +14,8 @@ public class Livros {
         this.paginas = paginas;
         this.autor = autor;
         this.disponivel = disponivel;
-        System.out.println("Livro cadastrado com sucesso.");
+        
+         
     }
 
     public String getTitulo() {
@@ -51,6 +52,5 @@ public class Livros {
     }
     
     
-    
-   
+
 }
